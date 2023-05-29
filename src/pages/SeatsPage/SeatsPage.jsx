@@ -11,6 +11,7 @@ export default function SeatsPage() {
     const navigate = useNavigate();
     const [sessao, setSessao] = useState(sessaoObjeto);
     const [selecionados, setSelecionados] = useState([]);
+    const [nameSelecionados, setNameSelecionados] = useState([]);
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
     const estados = [
@@ -35,8 +36,8 @@ export default function SeatsPage() {
         })
         promise.then(() => navigate("/sucesso", {
             movie:sessao.movie.title,
-            date:sessao.day.date + " " + sessao.name,
-            selecionados: selecionados,
+            date:sessao.day.date + " - " + sessao.name,
+            selecionados: nameSelecionados,
             name: name,
             cpf: cpf
         }))
@@ -48,7 +49,7 @@ export default function SeatsPage() {
 
             <SeatsContainer>
                 {sessao.seats.map(s =>
-                    <SeatItem onClick={() => selecionar(s.id, selecionados, setSelecionados, s.isAvailable)}
+                    <SeatItem onClick={() => selecionar(s.id, selecionados, setSelecionados, s.isAvailable, nameSelecionados, setNameSelecionados, s.name)}
                     isAvailable={s.isAvailable} 
                     isSelecionado={selecionados.includes(s.id)} 
                     >
