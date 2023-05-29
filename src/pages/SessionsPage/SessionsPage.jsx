@@ -1,6 +1,19 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
 export default function SessionsPage() {
+
+    const [sessao, setSessao] = useState({})
+    const parameter = useParams();
+
+    useEffect( () => {
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/movies/${parameter.idMovie}/showtimes`);
+
+        promise.then( response => setSessao(response.data));
+        promise.catch( response => console.log(response));
+    },[])
 
     return (
         <PageContainer>
